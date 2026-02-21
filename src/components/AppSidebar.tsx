@@ -9,8 +9,11 @@ import {
   Globe,
   Menu,
   X,
+  LogOut,
+  Copy,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { path: "/", label: "Overview", icon: LayoutDashboard },
@@ -20,11 +23,13 @@ const navItems = [
   { path: "/knowledge", label: "Knowledge", icon: BookOpen },
   { path: "/governance", label: "Governance", icon: Users },
   { path: "/map", label: "Global Map", icon: Globe },
+  { path: "/replicate", label: "Replicate", icon: Copy },
 ];
 
 const AppSidebar = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <>
@@ -82,7 +87,21 @@ const AppSidebar = () => {
           })}
         </nav>
 
-        <div className="p-4 border-t border-sidebar-border">
+        <div className="p-4 border-t border-sidebar-border space-y-3">
+          {user && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono text-sidebar-foreground/60 truncate max-w-[120px]">
+                {user.email}
+              </span>
+              <button
+                onClick={signOut}
+                className="text-sidebar-foreground/40 hover:text-sidebar-foreground transition-colors"
+                aria-label="Sign out"
+              >
+                <LogOut size={14} />
+              </button>
+            </div>
+          )}
           <div className="text-xs font-mono text-sidebar-foreground/40">
             open protocol
             <br />

@@ -1,1 +1,4 @@
 project_id = "bfwryjyouajeupjqurtt"
+
+[functions.public-impact]
+verify_jwt = false
